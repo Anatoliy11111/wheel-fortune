@@ -1,3 +1,4 @@
+import { PRIZE_VALIDITY_DAYS } from '../config/wheelSegments';
 import type { WheelSegment } from '../types';
 import { formatPrizeValue, prizeTypeLabel } from '../utils/messenger';
 
@@ -18,7 +19,7 @@ export function ResultCard({ segment, onClose }: ResultCardProps) {
           {segment.description ?? segment.label}
         </p>
         <p className="prize-card__hint">
-          Приз сохранён на 30 дней. При следующем заходе он будет здесь.
+          Приз сохранён на {PRIZE_VALIDITY_DAYS} дней. При следующем заходе он будет здесь.
         </p>
         <button className="prize-card__button" onClick={onClose} type="button">
           Отлично!
