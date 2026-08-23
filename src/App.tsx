@@ -4,7 +4,7 @@ import { ResultCard } from './components/ResultCard';
 import { SavedPrizeCard } from './components/SavedPrizeCard';
 import { SALON_NAME, WHEEL_SEGMENTS } from './config/wheelSegments';
 import type { AppPhase, SavedPrize, WheelSegment } from './types';
-import { initMessenger, type MessengerContext } from './utils/messenger';
+import { ensureTelegramSdk, initMessenger, type MessengerContext } from './utils/messenger';
 import { getSavedPrize, savePrize } from './utils/storage';
 
 export default function App() {
@@ -14,16 +14,26 @@ export default function App() {
   const [resultSegment, setResultSegment] = useState<WheelSegment | null>(null);
 
   useEffect(() => {
-    const ctx = initMessenger();
-    setMessenger(ctx);
+    let cancelled = false;
 
-    const existing = getSavedPrize(ctx.userId);
-    if (existing) {
-      setSavedPrize(existing);
-      setPhase('saved');
-    } else {
-      setPhase('spin');
-    }
+    ensureTelegramSdk().then(() => {
+      if (cancelled) return;
+
+      const ctx = initMessenger();
+      setMessenger(ctx);
+
+      const existing = getSavedPrize(ctx.userId);
+      if (existing) {
+        setSavedPrize(existing);
+        setPhase('saved');
+      } else {
+        setPhase('spin');
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleSpinComplete = useCallback(
@@ -85,12 +95,6 @@ export default function App() {
           <ResultCard segment={resultSegment} onClose={handleResultClose} />
         )}
       </main>
-
-      <footer className="footer">
-        {messenger?.isTelegram && <span>Открыто в Telegram</span>}
-        {messenger?.isMax && <span>Открыто в MAX</span>}
-        {!messenger?.isEmbedded && <span>Демо-режим</span>}
-      </footer>
     </div>
   );
 }

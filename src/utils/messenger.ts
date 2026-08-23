@@ -51,6 +51,27 @@ function guestId(): string {
   return id;
 }
 
+function isTelegramWebView(): boolean {
+  if (window.Telegram?.WebApp) return true;
+  if (/Telegram/i.test(navigator.userAgent)) return true;
+  return window.location.hash.includes('tgWebAppData');
+}
+
+/** Загружает SDK только внутри Telegram — локально не блокирует старт */
+export function ensureTelegramSdk(): Promise<void> {
+  if (window.Telegram?.WebApp) return Promise.resolve();
+  if (!isTelegramWebView()) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-web-app.js';
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => resolve();
+    document.head.appendChild(script);
+  });
+}
+
 export function initMessenger(): MessengerContext {
   const isMax = detectMax();
   const tg = window.Telegram?.WebApp;
