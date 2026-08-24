@@ -26,6 +26,9 @@ export function SavedPrizeCard({ prize }: SavedPrizeCardProps) {
       </div>
       <p className="prize-card__hint">
         Покажите этот экран мастеру при записи
+        <br/>
+        <br/>
+        <p style={{fontWeight: 'bold'}}>*бонус действует единоразово при записи на любую услугу</p>
       </p>
     </div>
   );

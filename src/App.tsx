@@ -65,7 +65,6 @@ export default function App() {
     <div className="app">
       <header className="header">
         <h1 className="header__title">{SALON_NAME}</h1>
-        <p className="header__subtitle">Колесо фортуны</p>
         {messenger?.userName && (
           <p className="header__greeting">Привет, {messenger.userName}!</p>
         )}
