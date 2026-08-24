@@ -22,11 +22,10 @@ const LABEL_RADIUS = RADIUS * 0.72;
 const ANGLE_PADDING = 3;
 
 function buildLayout(segments: WheelSegment[]): SegmentLayout[] {
-  const totalWeight = segments.reduce((sum, s) => sum + (s.weight ?? 1), 0);
+  const sliceAngle = 360 / segments.length;
   let currentAngle = 0;
 
   return segments.map((segment) => {
-    const sliceAngle = ((segment.weight ?? 1) / totalWeight) * 360;
     const startAngle = currentAngle;
     const endAngle = currentAngle + sliceAngle;
     const midAngle = startAngle + sliceAngle / 2;
