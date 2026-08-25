@@ -1,4 +1,5 @@
 import type { WheelSegment } from '../types';
+import { MASTER_TELEGRAM } from '../config/wheelSegments';
 
 export interface MessengerContext {
   userId: string;
@@ -29,6 +30,8 @@ interface TelegramWebApp {
   expand: () => void;
   setHeaderColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
+  openTelegramLink: (url: string) => void;
+  openLink: (url: string, options?: { try_instant_view?: boolean }) => void;
   themeParams: Record<string, string | undefined>;
   colorScheme: 'light' | 'dark';
   platform: string;
@@ -146,3 +149,28 @@ export function prizeTypeLabel(type: WheelSegment['type']): string {
       return 'Подарок';
   }
 }
+
+export function openExternalLink(url: string): void {
+  const tg = window.Telegram?.WebApp;
+
+  if (tg?.openLink) {
+    tg.openLink(url, { try_instant_view: false });
+    return;
+  }
+
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+export const MASTER_TELEGRAM_URL = `https://t.me/${MASTER_TELEGRAM}`;
+
+export function openMasterTelegram(): void {
+  const tg = window.Telegram?.WebApp;
+
+  if (tg?.openTelegramLink) {
+    tg.openTelegramLink(MASTER_TELEGRAM_URL);
+    return;
+  }
+
+  window.open(MASTER_TELEGRAM_URL, '_blank', 'noopener,noreferrer');
+}
+

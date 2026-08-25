@@ -56,5 +56,18 @@ export const WHEEL_SEGMENTS: WheelSegment[] = [
 /** Название салона / мастера — отображается в шапке */
 export const SALON_NAME = 'Ариша.лами';
 
+/** Telegram мастера без @ */
+export const MASTER_TELEGRAM = 'arissha14';
+
+/** Онлайн-запись DIKIDI */
+export const BOOKING_URL = 'https://dikidi.net/1873765';
+
+/**
+ * Ссылка на профиль мастера в MAX (https://max.ru/u/...).
+ * Скопируйте из приложения: профиль → QR → Поделиться.
+ */
+export const MASTER_MAX_URL =
+  'https://max.ru/u/f9LHodD0cOL63eE4tTMPec1QJxiIqhew8Moe5k3sTyD_S1wuQdYatpqjiHY';
+
 /** Срок действия приза в днях */
 export const PRIZE_VALIDITY_DAYS = 30;
