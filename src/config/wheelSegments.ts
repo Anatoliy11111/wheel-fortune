@@ -13,7 +13,7 @@ export const WHEEL_SEGMENTS: WheelSegment[] = [
     value: 5,
     description: 'Скидка 5% на любую услугу. Приятный бонус к любимой процедуре.',
     color: '#f4c2d7',
-    weight: 2.5,
+    weight: 3,
   },
   {
     id: 'discount-10',
@@ -31,7 +31,7 @@ export const WHEEL_SEGMENTS: WheelSegment[] = [
     value: 15,
     description: 'Скидка 15% на любую услугу. Побалуйте себя любимой процедурой выгоднее.',
     color: '#d484a8',
-    weight: 1,
+    weight: 0.5,
   },
   {
     id: 'bonus-brows',
